@@ -1,4 +1,4 @@
-﻿/*
+/*
  * screen.c - Various screen display functions
  *
  * Written by: Lee Smith, Modified by David Nugent
@@ -36,6 +36,9 @@
 #if defined(linux) || defined(__linux__)
 #include <sys/time.h>
 #endif
+
+void textmode(int x){}			// not used
+
 #else
 #include <conio.h>
 #endif
@@ -52,7 +55,7 @@
 //																				//
 //		Rlc added 6/16/98													//
 //////////////////////////////////////////////////////////////
-//#ifdef WIN32
+#ifdef WIN32
 
 //#include <wtypes.h>
 //#include <wincon.h>
@@ -102,7 +105,7 @@ static void gotoxy(int x, int y)
 
 }
 
-//#endif
+#endif
 //////////////////////////////////////////////////////////////
 //		End of Win32 Screen Functions									//
 //////////////////////////////////////////////////////////////
@@ -734,12 +737,12 @@ ScrollText(void)
     for (i = 5; i < ScrnHeight - 2; i++)
     /* This is actually ncurses/curses dependant */
 
-#if defined(linux) || defined(_linux)
-	memcpy(stdscr->_line[i].text, stdscr->_line[i+1].text,
-#else
-	memcpy(stdscr->_line[i], stdscr->_line[i + 1],
-#endif
-		42 * sizeof(chtype));
+//#if defined(linux) || defined(_linux)
+//	memcpy(stdscr->_line[i].text, stdscr->_line[i+1].text,
+//#else
+//	memcpy(stdscr->_line[i], stdscr->_line[i + 1],
+//#endif
+//		42 * sizeof(chtype));
     touchline(stdscr, 5, ScrnHeight - 2);
     SetColor();
     FillBox(1, ScrnHeight - 2, 42, 1, ' ');
